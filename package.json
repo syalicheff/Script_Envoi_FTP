@@ -1,0 +1,22 @@
+{
+  "name": "ftp-fournisseurs-global",
+  "version": "1.0.0",
+  "description": "Script d'envoi automatique de fichiers aux fournisseurs via FTP",
+  "main": "send_to_suppliers.js",
+  "scripts": {
+    "start": "node send_to_suppliers.js",
+    "setup-cron": "chmod +x setup_cron.sh && ./setup_cron.sh"
+  },
+  "keywords": [
+    "ftp",
+    "automation",
+    "file-transfer"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "basic-ftp": "^5.0.0",
+    "dotenv": "^16.3.0"
+  }
+}
+
