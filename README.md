@@ -123,15 +123,34 @@ Si ça fonctionne, bravo ! Node.js est installé correctement. 🎉
 
 - ✅ Node.js 16.x ou supérieur (voir section ci-dessus)
 - Accès à un serveur FTP (fourni par votre fournisseur)
-- URL du fichier à télécharger
+- Les fichiers à envoyer sur votre ordinateur
 
 ---
 
 ## 🚀 Installation du script
 
-### Étape 1 : Télécharger le projet
+### Étape 1 : Télécharger le projet depuis GitHub
 
-**Téléchargez tous les fichiers** de ce projet dans un dossier sur votre ordinateur.
+**Option A : Télécharger le ZIP (recommandé pour débutants)**
+
+1. Allez sur la page GitHub du projet
+2. Cliquez sur le **bouton vert "Code"** (en haut à droite)
+3. Dans le menu qui s'ouvre, cliquez sur **"Download ZIP"**
+4. Le fichier ZIP se télécharge sur votre ordinateur
+5. **Décompressez le fichier ZIP** :
+   - Sur macOS : Double-cliquez sur le fichier `.zip`
+   - Sur Windows : Clic droit → "Extraire tout"
+   - Sur Linux : Clic droit → "Extraire ici"
+6. Déplacez le dossier décompressé où vous le souhaitez (ex: Documents/Travail/)
+
+**Option B : Cloner avec Git (pour utilisateurs avancés)**
+
+Si vous avez Git installé :
+
+```bash
+git clone https://github.com/votre-username/FTP_Frs_GLOBAL.git
+cd FTP_Frs_GLOBAL
+```
 
 ### Étape 2 : Naviguer vers le dossier
 
@@ -151,17 +170,45 @@ Dans le Terminal (assurez-vous d'être dans le bon dossier), tapez :
 npm install
 ```
 
-Appuyez sur Entrée et attendez. Vous verrez du texte défiler, c'est normal. Cela installe les bibliothèques nécessaires (axios, basic-ftp, dotenv).
+Appuyez sur Entrée et attendez. Vous verrez du texte défiler, c'est normal. Cela installe les bibliothèques nécessaires (basic-ftp, dotenv).
 
 ---
 
 ## ⚙️ Configuration
 
-### Créer le fichier de configuration
+### Étape 1 : Modifier le fichier env.example
 
-Dans le Terminal, tapez :
+**Pourquoi commencer par env.example ?**
+Le fichier `.env` est caché par défaut (les fichiers commençant par un point sont invisibles). Il est plus simple de modifier d'abord `env.example` qui est visible, puis de le copier.
+
+1. **Ouvrez le fichier `env.example`** avec un éditeur de texte :
+
+   - Sur macOS : Double-cliquez sur `env.example`
+   - Sur Windows : Clic droit sur `env.example` → Ouvrir avec → Bloc-notes
+   - Ou utilisez un éditeur comme VSCode, Sublime Text, etc.
+
+2. **Remplacez les valeurs** par vos vraies informations :
+
+```env
+# Les informations de connexion FTP (demandez-les à votre fournisseur)
+FTP_HOST=ftp.fournisseur.com          # Adresse du serveur FTP
+FTP_USER=votre_nom_utilisateur        # Votre identifiant
+FTP_PASSWORD=votre_mot_de_passe       # Votre mot de passe
+
+# L'heure d'exécution automatique (format 24h)
+CRON_HOUR=09        # Heure (de 00 à 23)
+CRON_MINUTE=00      # Minutes (de 00 à 59)
+```
+
+3. **Sauvegardez le fichier `env.example`**
+
+### Étape 2 : Copier env.example vers .env
+
+Maintenant que vos informations sont correctes dans `env.example`, copiez-le vers `.env` :
 
 **Sur macOS/Linux :**
+
+Ouvrez le Terminal et tapez :
 
 ```bash
 cp env.example .env
@@ -169,48 +216,114 @@ cp env.example .env
 
 **Sur Windows (CMD) :**
 
+Ouvrez l'Invite de commandes et tapez :
+
 ```bash
 copy env.example .env
 ```
 
-### Éditer le fichier .env
-
-1. **Ouvrez le fichier `.env`** avec un éditeur de texte :
-
-   - Sur macOS : double-cliquez sur `.env` (ou utilisez TextEdit)
-   - Sur Windows : ouvrez avec Notepad
-   - Ou utilisez un éditeur comme VSCode, Sublime Text, etc.
-
-2. **Remplacez les valeurs** par vos vraies informations :
-
-```env
-# L'adresse web du fichier à envoyer
-URL_FICHIER=https://votre-site.com/fichier.pdf
-
-# Les informations de connexion FTP (demandez-les à votre fournisseur)
-FTP_HOST=ftp.fournisseur.com
-FTP_USER=votre_nom_utilisateur
-FTP_PASSWORD=votre_mot_de_passe
-
-# L'heure d'exécution automatique (format 24h)
-CRON_HOUR=09        # Heure (de 00 à 23)
-CRON_MINUTE=00      # Minutes (de 00 à 59)
-```
-
-3. **Sauvegardez le fichier**
+✅ Votre fichier de configuration `.env` est maintenant créé avec vos informations !
 
 **⚠️ Important :**
 
-- Ne partagez jamais ce fichier `.env` avec personne (il contient vos mots de passe)
-- Les lignes commençant par `#` sont des commentaires, vous pouvez les garder ou les supprimer
+- Le fichier `.env` contient vos mots de passe, ne le partagez **jamais**
+- Le fichier `.env` est automatiquement ignoré par Git (il ne sera pas envoyé sur GitHub)
+- Les lignes commençant par `#` sont des commentaires explicatifs
+
+---
+
+## 📂 Utilisation du dossier "A ENVOYER"
+
+### Comment fonctionne le dossier "A ENVOYER" ?
+
+Le dossier **"A ENVOYER"** est le dossier central de ce script. C'est ici que vous placez tous les fichiers que vous souhaitez envoyer à vos fournisseurs.
+
+**📍 Où se trouve-t-il ?**
+
+```
+FTP_Frs_GLOBAL/
+└── A ENVOYER/          ← Ce dossier
+    └── README.txt      (fichier d'instructions)
+```
+
+### 🎯 Comment l'utiliser ?
+
+**1. Ouvrez le dossier "A ENVOYER"**
+
+- Naviguez dans votre dossier `FTP_Frs_GLOBAL`
+- Double-cliquez sur le dossier **"A ENVOYER"**
+
+**2. Placez-y vos fichiers**
+
+- Glissez-déposez les fichiers à envoyer dans ce dossier
+- Ou copiez-collez vos fichiers dans ce dossier
+- Vous pouvez mettre **plusieurs fichiers** en même temps
+
+**3. Types de fichiers acceptés**
+
+- ✅ PDF, Excel, Word, images, ZIP, etc.
+- ✅ N'importe quel type de fichier
+- ✅ Plusieurs fichiers à la fois
+- ⚠️ Évitez les caractères spéciaux dans les noms de fichiers
+
+**4. Ce qui se passe ensuite**
+
+- Le script détecte **automatiquement** tous les fichiers présents
+- Chaque fichier est envoyé **un par un** via FTP
+- ✅ Les fichiers envoyés avec succès sont **déplacés** vers le dossier **"ENVOYES"**
+- ❌ Les fichiers en échec **restent** dans "A ENVOYER" pour un nouvel essai
+
+### 💡 Exemples
+
+**Exemple 1 : Un seul fichier**
+
+```
+A ENVOYER/
+└── facture_janvier.pdf
+```
+
+→ Le script envoie `facture_janvier.pdf`
+
+**Exemple 2 : Plusieurs fichiers**
+
+```
+A ENVOYER/
+├── commande_001.xlsx
+├── bon_livraison.pdf
+└── catalogue.pdf
+```
+
+→ Le script envoie les 3 fichiers l'un après l'autre
+
+**Exemple 3 : Dossier vide**
+
+```
+A ENVOYER/
+└── README.txt (ignoré automatiquement)
+```
+
+→ Le script affiche : "📭 Aucun fichier à envoyer"
+
+### ⚠️ Important
+
+- Le fichier `README.txt` dans "A ENVOYER" est ignoré automatiquement
+- Les fichiers cachés (commençant par `.`) sont ignorés
+- Les sous-dossiers ne sont pas traités
+- Une fois envoyés, les fichiers sont dans le dossier **"ENVOYES"**
 
 ---
 
 ## 🔧 Utilisation
 
-### Étape 1 : Tester manuellement (recommandé avant d'automatiser)
+### Étape 1 : Préparer vos fichiers
 
-Cette commande envoie le fichier **une seule fois** immédiatement pour vérifier que tout fonctionne :
+1. **Ouvrez le dossier `A ENVOYER`** (voir section ci-dessus)
+2. **Placez-y les fichiers** que vous souhaitez envoyer
+3. Vérifiez que vos fichiers sont bien visibles dans le dossier
+
+### Étape 2 : Tester manuellement (recommandé avant d'automatiser)
+
+Cette commande envoie les fichiers **une seule fois** immédiatement pour vérifier que tout fonctionne :
 
 ```bash
 node send_to_suppliers.js
@@ -222,9 +335,20 @@ Ou avec npm :
 npm start
 ```
 
-Si tout fonctionne bien, vous verrez des messages indiquant le succès du transfert. ✅
+Si tout fonctionne bien, vous verrez :
 
-### Étape 2 : Configurer l'exécution automatique avec cron
+- ✅ Le nombre de fichiers à envoyer
+- ✅ La progression pour chaque fichier
+- ✅ Les fichiers seront déplacés vers le dossier **`ENVOYES/`**
+
+Si aucun fichier n'est détecté, le message suivant s'affichera :
+
+```
+📭 Aucun fichier à envoyer
+Placez vos fichiers dans le dossier: A ENVOYER
+```
+
+### Étape 3 : Configurer l'exécution automatique avec cron
 
 **Cron** est un système intégré à macOS et Linux qui exécute des tâches automatiquement selon un planning.
 
@@ -432,19 +556,30 @@ Si vous êtes bloqué :
 
 ```
 FTP_Frs_GLOBAL/
-├── send_to_suppliers.js    # Script principal Node.js
-├── setup_cron.sh           # Script de configuration automatique de cron
-├── package.json            # Dépendances Node.js
-├── package-lock.json       # Verrouillage des versions (généré automatiquement)
-├── node_modules/           # Bibliothèques installées (généré par npm install)
-├── .env                    # Configuration (à créer)
-├── env.example             # Exemple de configuration
-├── README.md               # Documentation
-├── .gitignore              # Fichiers à ignorer dans Git
-├── ftp_transfer.log        # Logs des transferts FTP
-├── cron.log                # Logs des exécutions cron
-└── temp_downloads/         # Dossier temporaire (créé automatiquement)
+├── A ENVOYER/              # 📥 DOSSIER OÙ PLACER VOS FICHIERS
+│   └── README.txt         # Instructions d'utilisation
+├── ENVOYES/               # 📤 Historique des fichiers envoyés
+│   └── README.txt         # Informations sur l'historique
+├── send_to_suppliers.js   # Script principal Node.js
+├── setup_cron.sh          # Script de configuration automatique de cron
+├── package.json           # Dépendances Node.js
+├── package-lock.json      # Verrouillage des versions (généré automatiquement)
+├── node_modules/          # Bibliothèques installées (généré par npm install)
+├── .env                   # Configuration (à créer)
+├── env.example            # Exemple de configuration
+├── README.md              # Documentation
+├── .gitignore             # Fichiers à ignorer dans Git
+├── ftp_transfer.log       # Logs des transferts FTP
+└── cron.log               # Logs des exécutions cron
 ```
+
+### 📁 Dossiers importants
+
+| Dossier          | Description                     | Action                           |
+| ---------------- | ------------------------------- | -------------------------------- |
+| **A ENVOYER**    | Placez-y les fichiers à envoyer | ✅ Vous ajoutez des fichiers ici |
+| **ENVOYES**      | Archive des fichiers envoyés    | 📚 Consultation uniquement       |
+| **node_modules** | Bibliothèques Node.js           | 🚫 Ne pas modifier               |
 
 ---
 
