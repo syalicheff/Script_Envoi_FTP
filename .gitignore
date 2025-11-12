@@ -4,7 +4,8 @@
 # Dossiers de travail
 A ENVOYER/*
 !A ENVOYER/README.txt
-ENVOYES/
+ENVOYES/*
+!ENVOYES/README.txt
 
 # Logs
 *.log
